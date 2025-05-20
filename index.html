@@ -162,62 +162,57 @@
       box-shadow: 0 6px 12px rgba(0,0,0,0.1);
       margin-bottom: 1rem;
     }
-        .search-section {
-      background-color: var(--accent);
-      padding: 1.75rem 1.25rem;
-      border-radius: 1.25rem;
+      .welcome-section {
+      background: #fff9ed;
+      padding: 2.5rem 1.5rem;
+      border-radius: 1rem;
+      margin-top: 3rem;
       text-align: center;
-      max-width: 720px;
-      margin: 2.5rem auto;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.06);
     }
-    .search-section h2 {
+    .welcome-section h2 {
+      font-size: 1.6rem;
       margin-bottom: 1rem;
-      font-size: 1.4rem;
-      color: var(--text);
     }
-    .search-section input {
-      padding: 0.7rem 1rem;
-      width: 100%;
-      max-width: 460px;
-      border: 2px solid var(--secondary);
-      border-radius: 1.8rem;
-      font-size: 1rem;
-      margin-top: 1rem;
+    .welcome-section p {
+      max-width: 680px;
+      margin: 0.6rem auto;
     }
-    .question-suggestions {
-      margin: 1.25rem 0 1rem;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 0.5rem;
+    .welcome-section blockquote {
+      background: #fef6e0;
+      font-style: italic;
+      border-left: 4px solid var(--primary);
+      margin: 2rem auto 1rem;
+      padding: 1rem 1rem 1rem 1.2rem;
+      max-width: 540px;
     }
-    .question-suggestions button {
+    .faq-buttons {
+      margin-top: 2rem;
+    }
+    .faq-buttons h3 {
+      margin-bottom: 0.8rem;
+    }
+    .faq-buttons .question-suggestions button {
       background-color: #fff;
       border: 2px solid var(--secondary);
+      color: var(--text);
       border-radius: 2rem;
-      padding: 0.6rem 1rem;
+      padding: 0.5rem 1.1rem;
       font-size: 0.9rem;
-      font-family: 'Poppins', sans-serif;
+      margin: 0.25rem;
       cursor: pointer;
       transition: all 0.3s;
     }
-    .question-suggestions button:hover {
+    .faq-buttons .question-suggestions button:hover {
       background-color: var(--secondary);
       color: #fff;
     }
-     #autism-answer {
-      margin-top: 1.5rem;
-      font-size: 1rem;
-      color: var(--text);
-      max-width: 620px;
-      margin-left: auto;
-      margin-right: auto;
-      background: #fff;
-      border-left: 4px solid var(--primary);
-      padding: 1rem;
-      border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    .faq-buttons input[type="text"] {
+      margin-top: 1rem;
+      padding: 0.6rem 1rem;
+      border: 2px solid var(--secondary);
+      border-radius: 1.6rem;
+      max-width: 440px;
+      width: 100%;
     }
     .emoji-grid {
       display: flex;
@@ -276,31 +271,23 @@
       const nav = document.querySelector('nav');
       nav.classList.toggle('active');
     }
-    const answers = {
+   const answers = {
       "¿qué es el tea?": "El Trastorno del Espectro Autista (TEA) es una condición del neurodesarrollo caracterizada por dificultades en la comunicación social y patrones de comportamiento repetitivos. (American Psychiatric Association, 2013).",
       "cómo se diagnostica el autismo": "El diagnóstico del autismo se basa en criterios clínicos observacionales establecidos en el DSM-5. Incluye evaluaciones del lenguaje, interacción social y patrones conductuales repetitivos. (Lord et al., 2020).",
       "hay cura para el autismo": "El autismo no tiene cura, pero con apoyo adecuado, muchas personas pueden llevar vidas plenas. Las intervenciones incluyen terapia del lenguaje, ocupacional y apoyo conductual. (Zwaigenbaum et al., 2015).",
       "el autismo es hereditario": "Existe una fuerte evidencia de que el autismo tiene un componente genético, aunque no siempre es hereditario en un patrón directo. (Sandin et al., 2014).",
       "cómo apoyar a un niño con autismo": "Apoyar a un niño con autismo incluye brindar rutinas estables, comunicación clara, refuerzos positivos y acceso a terapias como la terapia ocupacional y del habla. (National Research Council, 2001)."
     };
-
     function handleSearchInput(e) {
       const query = e.target.value.toLowerCase().trim();
       const output = document.getElementById('autism-answer');
       const result = Object.entries(answers).find(([q]) => query.includes(q));
       output.textContent = result ? result[1] : 'Lo siento, aún no tengo una respuesta para eso.';
     }
-
     function autofill(question) {
-      const input = document.querySelector('.search-section input');
+      const input = document.querySelector('.faq-buttons input');
       input.value = question;
       handleSearchInput({ target: input });
-    }
-  </script>
-   <script>
-    function playBounceSound() {
-      const audio = new Audio('https://assets.mixkit.co/sfx/preview/mixkit-arcade-game-jump-coin-216.wav');
-      audio.play();
     }
   </script>
 </head>
@@ -327,30 +314,30 @@
     <a href="#libro" class="cta-button">Conoce el Libro</a>
   </section>
 
-  <section class="section" style="text-align: center;">
-  <h2>Bienvenidos a @enterapia.ea</h2>
-  <p>Aquí encontrarás toda la información sobre el Autismo y más. Es un blog para resolver dudas y romper mitos, tanto para padres/madres como para profesionales en el área y personas interesadas en el tema.</p>
-  <p>🗓️ Cada semana publicaré un artículo hablando sobre un tema importante y una vez al mes una reseña de un material. ¡Estamos aquí para aprender!</p>
-  <blockquote style="font-style: italic; background: #fef6e0; padding: 1rem; border-left: 4px solid var(--primary); margin: 2rem auto; max-width: 600px;">
-    "El cambio constante de las cosas nunca me daba la oportunidad de prepararme para ella. Por eso me gustaba y consolaba hacer las cosas una y otra vez."<br>
-    <strong>– Donna Williams, 1992</strong>
-  </blockquote>
-</section>
+  <section class="welcome-section">
+    <h2>Bienvenidos a @enterapia.ea</h2>
+    <p>Este es un blog creado para acompañar, informar y empoderar. Aquí hablamos de autismo sin filtros, con evidencia y con corazón. Está dirigido tanto a familias como a docentes y profesionales de la salud mental.</p>
+    <p>🗓️ Cada semana encontrarás un artículo nuevo sobre un tema clave, y cada mes una reseña de libros, materiales o herramientas útiles para el aula o el hogar.</p>
+    <blockquote>
+      "El cambio constante de las cosas nunca me daba la oportunidad de prepararme para ella. Por eso me gustaba y consolaba hacer las cosas una y otra vez."<br>
+      <strong>– Donna Williams, 1992</strong>
+    </blockquote>
 
-  <section class="search-section">
-    <h2>🔍 ¿Tienes preguntas sobre el autismo?</h2>
-    <p>Haz clic en una pregunta común o escribe la tuya:</p>
-    <div class="question-suggestions">
-      <button onclick="autofill('¿Qué es el TEA?')">¿Qué es el TEA?</button>
-      <button onclick="autofill('¿Cómo se diagnostica el autismo?')">¿Cómo se diagnostica el autismo?</button>
-      <button onclick="autofill('¿Hay cura para el autismo?')">¿Hay cura para el autismo?</button>
-      <button onclick="autofill('¿El autismo es hereditario?')">¿El autismo es hereditario?</button>
-      <button onclick="autofill('¿Cómo apoyar a un niño con autismo?')">¿Cómo apoyar a un niño con autismo?</button>
-    </div>
-    <input type="text" placeholder="Escribe tu pregunta..." oninput="handleSearchInput(event)">
-    <div id="autism-answer" style="margin-top: 1.5rem; font-size: 1rem; color: var(--text); max-width: 620px; margin-left: auto; margin-right: auto;"></div>
-    <div class="emoji-grid" aria-hidden="true">
-      🧠 👧🏽 📘 🗣️ ♾ 🧩 👀 🧒🏻 🎨 🫂 💬 🧸
+    <div class="faq-buttons">
+      <h3>🔍 ¿Tienes preguntas sobre el autismo?</h3>
+      <p>Haz clic en una pregunta común o escribe la tuya:</p>
+      <div class="question-suggestions">
+        <button onclick="autofill('¿Qué es el TEA?')">¿Qué es el TEA?</button>
+        <button onclick="autofill('¿Cómo se diagnostica el autismo?')">¿Cómo se diagnostica el autismo?</button>
+        <button onclick="autofill('¿Hay cura para el autismo?')">¿Hay cura para el autismo?</button>
+        <button onclick="autofill('¿El autismo es hereditario?')">¿El autismo es hereditario?</button>
+        <button onclick="autofill('¿Cómo apoyar a un niño con autismo?')">¿Cómo apoyar a un niño con autismo?</button>
+      </div>
+      <input type="text" placeholder="Escribe tu pregunta..." oninput="handleSearchInput(event)">
+      <div id="autism-answer" style="margin-top: 1.5rem; font-size: 1rem; color: var(--text); max-width: 620px; margin-left: auto; margin-right: auto;"></div>
+      <div class="emoji-grid" aria-hidden="true" style="margin-top: 1.25rem;">
+        🧠 👧🏽 📘 🗣️ ♾ 🧩 👀 🧒🏻 🎨 🫂 💬 🧸
+      </div>
     </div>
   </section>
 
