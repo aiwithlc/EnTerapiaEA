@@ -23,21 +23,20 @@
       --bg: #FFFDF9;
       --coral: #F7AFA3;
     }
-    body {
+     body {
       font-family: 'Poppins', sans-serif;
       margin: 0;
-      padding: 0;
-      background-color: var(--bg);
-      color: var(--text);
+      background: #FFFDF9;
+      color: #222;
     }
     header {
-      background-color: #fff;
-      padding: 1rem 1.5rem;
-      border-bottom: 8px solid var(--accent);
+      background: #fff;
+      border-bottom: 8px solid #FFF3B0;
       box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+      padding: 1rem 1.5rem;
       display: flex;
-      justify-content: space-between;
       align-items: center;
+      justify-content: space-between;
       flex-wrap: wrap;
       position: relative;
     }
@@ -45,18 +44,24 @@
       display: flex;
       align-items: center;
       gap: 0.75rem;
+      text-decoration: none;
     }
     .header-left img.logo {
       width: 60px;
     }
     .header-left h1 {
-      font-size: clamp(1.4rem, 4vw, 1.9rem);
       margin: 0;
-      background: linear-gradient(to right, #6EC5C0, #a9dbf5);
+      font-size: 1.8rem;
+      background: linear-gradient(to right, #6EC5C0, #A9DBF5);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      background-clip: text;
-      text-fill-color: transparent;
+    }
+    .menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 1.6rem;
+      cursor: pointer;
     }
     nav {
       display: flex;
@@ -64,25 +69,38 @@
       flex-wrap: wrap;
     }
     nav a {
-      color: var(--text);
-      text-decoration: none;
       font-weight: 600;
-      font-size: 0.9rem;
+      text-decoration: none;
+      color: #222;
       position: relative;
+      font-size: 0.9rem;
     }
     nav a::after {
-      content: "";
+      content: '';
       position: absolute;
       width: 0%;
       height: 2px;
-      left: 0;
+      background: #222;
       bottom: -4px;
-      background-color: var(--text);
-      transition: width 0.3s;
+      left: 0;
+      transition: width 0.3s ease;
     }
-    nav a:hover::after,
-    nav a:focus::after {
+    nav a:hover::after {
       width: 100%;
+    }
+    @media (max-width: 768px) {
+      .menu-toggle {
+        display: block;
+      }
+      nav {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        margin-top: 1rem;
+      }
+      nav.active {
+        display: flex;
+      }
     }
     .menu-toggle {
       display: none;
@@ -611,19 +629,6 @@ toggle.addEventListener('click', function (e) {
   }
 </style>
 
-<div class="chatbot-popup" id="chatPopup">
-  <div class="chat-header">
-    <span><img src="eabot.png" alt="EA Bot" /> EA Bot</span>
-    <button onclick="toggleChat()">×</button>
-  </div>
-  <div class="chat-messages" id="chatMessages">
-    <div class="bot">Hola 👋 ¿Sobre qué quieres saber?<br>Escribe una palabra como "diagnóstico", "apoyar", o "hereditario".</div>
-  </div>
-  <form class="chat-input" onsubmit="return handleUserInput(event)">
-    <input type="text" id="userInput" placeholder="Escribe aquí..." autocomplete="off" />
-    <button type="submit">➤</button>
-  </form>
-</div>
 
 <a class="chatbot-toggle" id="chatbotToggle">💬 Chatea con EA Bot</a>
 
@@ -640,12 +645,13 @@ toggle.addEventListener('click', function (e) {
       <button type="submit">➤</button>
     </form>
   </div>
-
-  <a class="chatbot-toggle" id="chatbotToggle">💬 Chatea con EA Bot</a>
-
-  <script>
-    // Chatbot answers
+<script defer>
     const answers = {
+      "¿qué es el tea?": "El Trastorno del Espectro Autista (TEA) es una condición del neurodesarrollo caracterizada por dificultades en la comunicación social y patrones de comportamiento repetitivos. (American Psychiatric Association, 2013).",
+      "cómo se diagnostica el autismo": "El diagnóstico del autismo se basa en criterios clínicos observacionales establecidos en el DSM-5. Incluye evaluaciones del lenguaje, interacción social y patrones conductuales repetitivos. (Lord et al., 2020).",
+      "hay cura para el autismo": "El autismo no tiene cura, pero con apoyo adecuado, muchas personas pueden llevar vidas plenas. Las intervenciones incluyen terapia del lenguaje, ocupacional y apoyo conductual. (Zwaigenbaum et al., 2015).",
+      "el autismo es hereditario": "Existe una fuerte evidencia de que el autismo tiene un componente genético, aunque no siempre es hereditario en un patrón directo. (Sandin et al., 2014).",
+      "cómo apoyar a un niño con autismo": "Apoyar a un niño con autismo incluye brindar rutinas estables, comunicación clara, refuerzos positivos y acceso a terapias como la terapia ocupacional y del habla. (National Research Council, 2001).",
       "diagnóstico": "El diagnóstico del autismo se realiza por observación clínica y pruebas específicas. DSM-5 es la guía principal.",
       "apoyar": "Apoyar a un niño con TEA incluye rutina, lenguaje claro y terapias como ocupacional y del habla.",
       "hereditario": "Sí, existe un componente genético fuerte en el autismo, aunque no siempre es directo.",
@@ -656,32 +662,39 @@ toggle.addEventListener('click', function (e) {
       "terapia": "Hay varias terapias útiles para el TEA: ocupacional, del habla, sensorial, y apoyo conductual basado en evidencia."
     };
 
-    // Chatbot logic
-    const popup = document.getElementById('chatPopup');
-    const messages = document.getElementById('chatMessages');
-    const input = document.getElementById('userInput');
+    function handleSearchInput(e) {
+      const query = e.target.value.toLowerCase().trim();
+      const output = document.getElementById('autism-answer');
+      const result = Object.entries(answers).find(([q]) => query.includes(q));
+      output.innerHTML = result ? result[1] : 'Lo siento, aún no tengo una respuesta para eso.';
+    }
+
+    function autofill(question) {
+      const input = document.querySelector('.faq-buttons input');
+      input.value = question;
+      handleSearchInput({ target: input });
+    }
 
     function toggleChat() {
-      const isVisible = popup.style.display === 'flex';
-      popup.style.display = isVisible ? 'none' : 'flex';
-      if (!isVisible) input.focus();
+      const popup = document.getElementById('chatPopup');
+      popup.style.display = popup.style.display === 'flex' ? 'none' : 'flex';
     }
 
     function handleUserInput(event) {
       event.preventDefault();
-      const text = input.value.trim();
+      const inputField = document.getElementById('userInput');
+      const text = inputField.value.trim();
       if (!text) return;
-
       appendMessage(text, 'user');
       const keyword = Object.keys(answers).find(key => text.toLowerCase().includes(key));
       setTimeout(() => {
         appendMessage(keyword ? answers[keyword] : 'Lo siento, aún no tengo una respuesta para eso.', 'bot');
       }, 400);
-
-      input.value = '';
+      inputField.value = '';
     }
 
     function appendMessage(text, type) {
+      const messages = document.getElementById('chatMessages');
       const msg = document.createElement('div');
       msg.className = type;
       msg.innerHTML = '';
@@ -696,12 +709,7 @@ toggle.addEventListener('click', function (e) {
       }, 15);
     }
 
-    document.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape') popup.style.display = 'none';
-    });
-
-    // ✅ Safe toggle assignment AFTER DOM is ready
-    document.addEventListener("DOMContentLoaded", function () {
+    document.addEventListener('DOMContentLoaded', function () {
       const toggle = document.getElementById('chatbotToggle');
       if (toggle) {
         toggle.addEventListener('click', function (e) {
@@ -710,7 +718,5 @@ toggle.addEventListener('click', function (e) {
         });
       }
     });
-  </script>
-  <!-- END CHATBOT WIDGET -->
-</body>
+  </script></body>
 </html>
