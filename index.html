@@ -1,3 +1,4 @@
+<!-- FIXED VERSION of Enterapiaea Index (answers declaration duplicated error removed) -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -361,63 +362,110 @@
   opacity: 1;
   pointer-events: auto;
 }
-
-  </style>
-  <noscript><style>.apple-emoji { display: none; }</style></noscript>
-  <script>
-    function playBounceSound() {
-      const audio = new Audio('https://assets.mixkit.co/sfx/preview/mixkit-arcade-game-jump-coin-216.wav');
-      audio.play();
-    }
-      function toggleMenu() {
-      const nav = document.querySelector('nav');
-      nav.classList.toggle('active');
-    }
-   const answers = {
-      "¿qué es el tea?": "El Trastorno del Espectro Autista (TEA) es una condición del neurodesarrollo caracterizada por dificultades en la comunicación social y patrones de comportamiento repetitivos. (American Psychiatric Association, 2013).",
-      "cómo se diagnostica el autismo": "El diagnóstico del autismo se basa en criterios clínicos observacionales establecidos en el DSM-5. Incluye evaluaciones del lenguaje, interacción social y patrones conductuales repetitivos. (Lord et al., 2020).",
-      "hay cura para el autismo": "El autismo no tiene cura, pero con apoyo adecuado, muchas personas pueden llevar vidas plenas. Las intervenciones incluyen terapia del lenguaje, ocupacional y apoyo conductual. (Zwaigenbaum et al., 2015).",
-      "el autismo es hereditario": "Existe una fuerte evidencia de que el autismo tiene un componente genético, aunque no siempre es hereditario en un patrón directo. (Sandin et al., 2014).",
-      "cómo apoyar a un niño con autismo": "Apoyar a un niño con autismo incluye brindar rutinas estables, comunicación clara, refuerzos positivos y acceso a terapias como la terapia ocupacional y del habla. (National Research Council, 2001)."
-    };
-    function handleSearchInput(e) {
-      const query = e.target.value.toLowerCase().trim();
-      const output = document.getElementById('autism-answer');
-      const result = Object.entries(answers).find(([q]) => query.includes(q));
-      output.textContent = result ? result[1] : 'Lo siento, aún no tengo una respuesta para eso.';
-    }
-    function autofill(question) {
-      const input = document.querySelector('.faq-buttons input');
-      input.value = question;
-      handleSearchInput({ target: input });
-    }
-  document.addEventListener("DOMContentLoaded", function () {
-    const apple = document.querySelector(".apple-emoji");
-    if (apple) {
-      apple.addEventListener("animationend", () => {
-        apple.remove();
-      });
-    }
-  });
-    window.addEventListener("scroll", () => {
-  const btn = document.querySelector(".back-to-top");
-  if (window.scrollY > 300) {
-    btn.classList.add("show");
-  } else {
-    btn.classList.remove("show");
+<!-- CHATBOT WIDGET -->
+<style>
+  .chatbot-toggle {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    background: #F4F0FF;
+    color: #222;
+    padding: 0.7rem 1rem;
+    border-radius: 999px;
+    font-weight: 600;
+    text-decoration: none;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    font-size: 0.9rem;
+    z-index: 999;
+    transition: background 0.3s ease;
+    cursor: pointer;
   }
-});
-    fetch("chatbot.html").then(res => res.text()).then(html => {
-  document.body.insertAdjacentHTML("beforeend", html);
-});
+  .chatbot-popup {
+    position: fixed;
+    bottom: 80px;
+    right: 24px;
+    width: 320px;
+    max-height: 480px;
+    background: #ffffff;
+    border-radius: 1rem;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
+    display: none;
+    flex-direction: column;
+    z-index: 998;
+  }
+  .chat-header {
+    background: linear-gradient(to right, #F4F0FF, #DAD6F4);
+    color: #222;
+    padding: 1rem;
+    font-weight: 600;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .chat-header img {
+    width: 26px;
+    height: 26px;
+    margin-right: 0.5rem;
+    vertical-align: middle;
+  }
+  .chat-header span {
+    display: flex;
+    align-items: center;
+  }
+  .chat-header button {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+  }
+  .chat-messages {
+    padding: 1rem;
+    flex: 1;
+    overflow-y: auto;
+    font-size: 0.9rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+  .chat-messages .bot {
+    background: #F4F0FF;
+    padding: 0.6rem 1rem;
+    border-radius: 1rem;
+    max-width: 80%;
+    animation: fadeIn 0.3s ease-in-out;
+  }
+  .chat-messages .user {
+    background: #BCEAE5;
+    align-self: flex-end;
+    padding: 0.6rem 1rem;
+    border-radius: 1rem;
+    max-width: 80%;
+  }
+  .chat-input {
+    display: flex;
+    padding: 0.8rem;
+    border-top: 1px solid #eee;
+    gap: 0.4rem;
+  }
+  .chat-input input {
+    flex: 1;
+    padding: 0.6rem 1rem;
+    border-radius: 1.6rem;
+    border: 1px solid #F4F0FF;
+    font-size: 0.9rem;
+  }
+  .chat-input button {
+    background: #A9DBF5;
+    border: none;
+    padding: 0.6rem 1rem;
+    border-radius: 999px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+</style>
 
-toggle.addEventListener('click', function (e) {
-  e.preventDefault();
-  toggleChat();
-});
-
-</script>
-</head>
+  </head>
 <body>
   <header>
  <a href="/enterapiaea" class="header-left" style="text-decoration: none;">
@@ -526,113 +574,13 @@ toggle.addEventListener('click', function (e) {
     © 2025 En Terapia EA · Diseñado con amor y propósito
   </footer>
   <button class="back-to-top" onclick="window.scrollTo({ top: 0, behavior: 'smooth' })">🔝 Arriba</button>
- <!-- CHATBOT WIDGET -->
-<style>
-  .chatbot-toggle {
-    position: fixed;
-    bottom: 24px;
-    right: 24px;
-    background: #F4F0FF;
-    color: #222;
-    padding: 0.7rem 1rem;
-    border-radius: 999px;
-    font-weight: 600;
-    text-decoration: none;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    font-size: 0.9rem;
-    z-index: 999;
-    transition: background 0.3s ease;
-    cursor: pointer;
-  }
-  .chatbot-popup {
-    position: fixed;
-    bottom: 80px;
-    right: 24px;
-    width: 320px;
-    max-height: 480px;
-    background: #ffffff;
-    border-radius: 1rem;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-    overflow: hidden;
-    display: none;
-    flex-direction: column;
-    z-index: 998;
-  }
-  .chat-header {
-    background: linear-gradient(to right, #F4F0FF, #DAD6F4);
-    color: #222;
-    padding: 1rem;
-    font-weight: 600;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  .chat-header img {
-    width: 26px;
-    height: 26px;
-    margin-right: 0.5rem;
-    vertical-align: middle;
-  }
-  .chat-header span {
-    display: flex;
-    align-items: center;
-  }
-  .chat-header button {
-    background: none;
-    border: none;
-    font-size: 1.2rem;
-    cursor: pointer;
-  }
-  .chat-messages {
-    padding: 1rem;
-    flex: 1;
-    overflow-y: auto;
-    font-size: 0.9rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.6rem;
-  }
-  .chat-messages .bot {
-    background: #F4F0FF;
-    padding: 0.6rem 1rem;
-    border-radius: 1rem;
-    max-width: 80%;
-    animation: fadeIn 0.3s ease-in-out;
-  }
-  .chat-messages .user {
-    background: #BCEAE5;
-    align-self: flex-end;
-    padding: 0.6rem 1rem;
-    border-radius: 1rem;
-    max-width: 80%;
-  }
-  .chat-input {
-    display: flex;
-    padding: 0.8rem;
-    border-top: 1px solid #eee;
-    gap: 0.4rem;
-  }
-  .chat-input input {
-    flex: 1;
-    padding: 0.6rem 1rem;
-    border-radius: 1.6rem;
-    border: 1px solid #F4F0FF;
-    font-size: 0.9rem;
-  }
-  .chat-input button {
-    background: #A9DBF5;
-    border: none;
-    padding: 0.6rem 1rem;
-    border-radius: 999px;
-    font-weight: bold;
-    cursor: pointer;
-  }
-</style>
+ 
+  
+  <!-- Chatbot Toggle -->
+<a href="#" class="chatbot-toggle" id="chatbotToggle">💬 Chatea con EA Bot</a>
 
-
-<a class="chatbot-toggle" id="chatbotToggle">💬 Chatea con EA Bot</a>
-
-<div class="chatbot-popup" id="chatPopup">
+  <!-- Single Chatbot Popup -->
+  <div class="chatbot-popup" id="chatPopup">
     <div class="chat-header">
       <span><img src="eabot.png" alt="EA Bot" /> EA Bot</span>
       <button onclick="toggleChat()">×</button>
@@ -645,7 +593,48 @@ toggle.addEventListener('click', function (e) {
       <button type="submit">➤</button>
     </form>
   </div>
-<script defer>
+
+  <!-- Scripts -->
+ <noscript><style>.apple-emoji { display: none; }</style></noscript>
+  <script>
+    function playBounceSound() {
+      const audio = new Audio('https://assets.mixkit.co/sfx/preview/mixkit-arcade-game-jump-coin-216.wav');
+      audio.play();
+    }
+    function toggleMenu() {
+      const nav = document.querySelector('nav');
+      nav.classList.toggle('active');
+    }
+    function toggleChat() {
+      const popup = document.getElementById('chatPopup');
+      popup.style.display = popup.style.display === 'flex' ? 'none' : 'flex';
+    }
+    function handleUserInput(event) {
+      event.preventDefault();
+      const inputField = document.getElementById('userInput');
+      const text = inputField.value.trim();
+      if (!text) return;
+      appendMessage(text, 'user');
+      const keyword = Object.keys(answers).find(key => text.toLowerCase().includes(key));
+      setTimeout(() => {
+        appendMessage(keyword ? answers[keyword] : 'Lo siento, aún no tengo una respuesta para eso.', 'bot');
+      }, 400);
+      inputField.value = '';
+    }
+    function appendMessage(text, type) {
+      const messages = document.getElementById('chatMessages');
+      const msg = document.createElement('div');
+      msg.className = type;
+      msg.innerHTML = '';
+      messages.appendChild(msg);
+      let i = 0;
+      const typing = setInterval(() => {
+        msg.innerHTML += text[i];
+        i++;
+        if (i === text.length) clearInterval(typing);
+        messages.scrollTop = messages.scrollHeight;
+      }, 15);
+    }
     const answers = {
       "¿qué es el tea?": "El Trastorno del Espectro Autista (TEA) es una condición del neurodesarrollo caracterizada por dificultades en la comunicación social y patrones de comportamiento repetitivos. (American Psychiatric Association, 2013).",
       "cómo se diagnostica el autismo": "El diagnóstico del autismo se basa en criterios clínicos observacionales establecidos en el DSM-5. Incluye evaluaciones del lenguaje, interacción social y patrones conductuales repetitivos. (Lord et al., 2020).",
@@ -661,62 +650,35 @@ toggle.addEventListener('click', function (e) {
       "caminar": "Muchos niños con TEA desarrollan habilidades motoras en tiempos distintos, caminar puede llegar más tarde pero es posible con apoyo físico adecuado.",
       "terapia": "Hay varias terapias útiles para el TEA: ocupacional, del habla, sensorial, y apoyo conductual basado en evidencia."
     };
-
     function handleSearchInput(e) {
       const query = e.target.value.toLowerCase().trim();
       const output = document.getElementById('autism-answer');
       const result = Object.entries(answers).find(([q]) => query.includes(q));
       output.innerHTML = result ? result[1] : 'Lo siento, aún no tengo una respuesta para eso.';
     }
-
     function autofill(question) {
       const input = document.querySelector('.faq-buttons input');
       input.value = question;
       handleSearchInput({ target: input });
     }
-
-    function toggleChat() {
-      const popup = document.getElementById('chatPopup');
-      popup.style.display = popup.style.display === 'flex' ? 'none' : 'flex';
-    }
-
-    function handleUserInput(event) {
-      event.preventDefault();
-      const inputField = document.getElementById('userInput');
-      const text = inputField.value.trim();
-      if (!text) return;
-      appendMessage(text, 'user');
-      const keyword = Object.keys(answers).find(key => text.toLowerCase().includes(key));
-      setTimeout(() => {
-        appendMessage(keyword ? answers[keyword] : 'Lo siento, aún no tengo una respuesta para eso.', 'bot');
-      }, 400);
-      inputField.value = '';
-    }
-
-    function appendMessage(text, type) {
-      const messages = document.getElementById('chatMessages');
-      const msg = document.createElement('div');
-      msg.className = type;
-      msg.innerHTML = '';
-      messages.appendChild(msg);
-
-      let i = 0;
-      const typing = setInterval(() => {
-        msg.innerHTML += text[i];
-        i++;
-        if (i === text.length) clearInterval(typing);
-        messages.scrollTop = messages.scrollHeight;
-      }, 15);
-    }
-
-    document.addEventListener('DOMContentLoaded', function () {
-      const toggle = document.getElementById('chatbotToggle');
-      if (toggle) {
-        toggle.addEventListener('click', function (e) {
-          e.preventDefault();
-          toggleChat();
-        });
+    document.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('chatbotToggle').addEventListener('click', e => {
+        e.preventDefault();
+        toggleChat();
+      });
+      const apple = document.querySelector('.apple-emoji');
+      if (apple) {
+        apple.addEventListener('animationend', () => apple.remove());
       }
     });
-  </script></body>
+    window.addEventListener("scroll", () => {
+      const btn = document.querySelector(".back-to-top");
+      if (window.scrollY > 300) {
+        btn.classList.add("show");
+      } else {
+        btn.classList.remove("show");
+      }
+    });
+  </script>
+</body>
 </html>
