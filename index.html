@@ -6,7 +6,7 @@
   <title>En Terapia EA – Neuropsicología Infantil y Editorial</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
-    :root {
+     :root {
       --primary: #FF867C;
       --secondary: #6EC5C0;
       --accent: #FEEA9A;
@@ -21,8 +21,7 @@
       color: var(--text);
     }
     header {
-      background: linear-gradient(to right, #FF867C, #FFAA9F);
-      color: #fff;
+      background-color: #fff;
       padding: 1rem 1.5rem;
       border-bottom: 8px solid var(--accent);
       box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
@@ -30,6 +29,7 @@
       justify-content: space-between;
       align-items: center;
       flex-wrap: wrap;
+      position: relative;
     }
     .header-left {
       display: flex;
@@ -42,6 +42,11 @@
     .header-left h1 {
       font-size: clamp(1.4rem, 4vw, 1.9rem);
       margin: 0;
+      background: linear-gradient(to right, #6EC5C0, #FF867C);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-fill-color: transparent;
     }
     nav {
       display: flex;
@@ -49,7 +54,7 @@
       flex-wrap: wrap;
     }
     nav a {
-      color: #fff;
+      color: var(--text);
       text-decoration: none;
       font-weight: 600;
       font-size: 0.9rem;
@@ -62,12 +67,20 @@
       height: 2px;
       left: 0;
       bottom: -4px;
-      background-color: #fff;
+      background-color: var(--text);
       transition: width 0.3s;
     }
     nav a:hover::after,
     nav a:focus::after {
       width: 100%;
+    }
+    .menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      color: var(--text);
+      cursor: pointer;
     }
     .section {
       max-width: 920px;
@@ -98,8 +111,8 @@
     }
     .cta-button {
       display: inline-block;
-      background: var(--secondary);
-      color: #fff;
+      background: linear-gradient(to right, #6EC5C0, #49b3ab);
+      color: #ffffff;
       padding: 0.65rem 1.4rem;
       border-radius: 32px;
       text-decoration: none;
@@ -113,15 +126,23 @@
       transform: translateY(-2px);
     }
     @media (max-width: 768px) {
-      header {
-        flex-direction: column;
-        align-items: flex-start;
-        text-align: left;
+      .menu-toggle {
+        display: block;
+        position: absolute;
+        right: 1.5rem;
+        top: 1.2rem;
       }
       nav {
+        display: none;
+        flex-direction: column;
         width: 100%;
-        justify-content: center;
         margin-top: 1rem;
+      }
+      nav.active {
+        display: flex;
+      }
+      nav a {
+        padding: 0.5rem 0;
       }
       .hero img {
         width: 160px;
