@@ -236,6 +236,10 @@
       const audio = new Audio('https://assets.mixkit.co/sfx/preview/mixkit-arcade-game-jump-coin-216.wav');
       audio.play();
     }
+      function toggleMenu() {
+      const nav = document.querySelector('nav');
+      nav.classList.toggle('active');
+    }
   </script>
 </head>
 <body>
@@ -245,6 +249,7 @@
       <h1>enterapia.ea</h1>
     </div>
     <nav>
+      <button class="menu-toggle" onclick="toggleMenu()">☰</button>
       <a href="#sobre">Sobre Mí</a>
       <a href="#libro">Tommy, ¿Dónde Están Mis Gafas?</a>
       <a href="#editorial">Big Tiny Minds</a>
