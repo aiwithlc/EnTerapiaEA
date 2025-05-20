@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>enterapia.ea – Psicología Infantil y Editorial</title>
+  <title>Terapia EA – Psicología Infantil y Editorial</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
     :root {
@@ -21,32 +21,47 @@
       color: var(--text);
     }
     header {
-      background-color: var(--primary);
-      color: #fff;
-      text-align: center;
-      padding: 2.5rem 1rem 2rem;
-    }
+  background-color: var(--primary);
+  color: #fff;
+  text-align: center;
+  padding: 3.5rem 1rem 3rem;
+  border-bottom: 10px solid var(--accent);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+  background-image: radial-gradient(circle at top left, rgba(255,255,255,0.05), rgba(255,255,255,0)), radial-gradient(circle at bottom right, rgba(255,255,255,0.1), rgba(255,255,255,0));
+  background-blend-mode: overlay;
+}
     header h1 {
-      font-size: 2.8rem;
+      font-size: 3rem;
       margin: 0;
+      letter-spacing: 1px;
     }
     header p {
-      margin-top: 0.5rem;
+      margin-top: 0.8rem;
       font-weight: 500;
-      font-size: 1.1rem;
+      font-size: 1.15rem;
+      line-height: 1.5;
+      max-width: 680px;
+      margin-left: auto;
+      margin-right: auto;
     }
     nav {
       display: flex;
       justify-content: center;
       flex-wrap: wrap;
       gap: 1.25rem;
-      margin-top: 1.5rem;
+      margin-top: 1.75rem;
     }
     nav a {
       color: #fff;
       text-decoration: none;
       font-weight: 600;
       font-size: 1rem;
+      padding: 0.25rem 0.75rem;
+      border-radius: 6px;
+    }
+    nav a:focus,
+    nav a:hover {
+      background-color: rgba(255, 255, 255, 0.15);
     }
     .section {
       max-width: 920px;
@@ -55,17 +70,17 @@
       line-height: 1.6;
     }
     .hero img {
-      width: 170px;
+      width: 220px;
       border-radius: 100px;
       box-shadow: 0 4px 14px rgba(0,0,0,0.1);
-      margin-bottom: 1rem;
+      margin-bottom: 1.25rem;
     }
     .cta-button {
       display: inline-block;
       background: var(--secondary);
       color: #fff;
-      padding: 0.9rem 1.6rem;
-      border-radius: 28px;
+      padding: 1rem 1.8rem;
+      border-radius: 32px;
       text-decoration: none;
       font-weight: 600;
       font-size: 1rem;
@@ -76,9 +91,10 @@
       background: #4fb0ab;
     }
     .book-section img {
-      width: 190px;
+      width: 280px;
       border-radius: 14px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+      margin-bottom: 1rem;
     }
     h2 {
       font-size: 2rem;
@@ -119,27 +135,12 @@
       font-size: 2rem;
       margin-top: 2rem;
     }
-    
-.hero img {
-  width: 240px;
-  border-radius: 100px;
-  box-shadow: 0 6px 16px rgba(0,0,0,0.1);
-  margin-bottom: 1.25rem;
-}
-
-.book-section img {
-  width: 320px;
-  border-radius: 14px;
-  box-shadow: 0 6px 12px rgba(0,0,0,0.12);
+    #editorial img {
+  max-width: 300px;
   margin-bottom: 1rem;
+  box-shadow: none;
+  background: none;
 }
-
-#editorial img {
-  max-width: 260px;
-  margin-bottom: 1rem;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.06);
-}
-
   </style>
 </head>
 <body>
