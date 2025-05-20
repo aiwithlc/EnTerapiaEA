@@ -9,6 +9,8 @@
   <meta property="og:description" content="Lic. Ericka Acosta, Neuropsicóloga Infantil. Descubre su libro infantil, su trabajo editorial y artículos sobre autismo, inclusión y crianza con perspectiva.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://aiwithlc.github.io/EnTerapiaEA/">
+  <meta name="keywords" content="neuropsicología infantil, autismo, inclusión, crianza respetuosa, cuentos infantiles, educación emocional, TEA, Ericka Acosta">
+
   <title>En Terapia EA – Neuropsicología Infantil y Editorial</title>
   <link rel="icon" href="logo.png" type="image/png">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
@@ -320,6 +322,27 @@
   pointer-events: none;
   z-index: 10;
 }
+.back-to-top {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  background: var(--primary);
+  color: #222;
+  border: none;
+  padding: 0.7rem 1rem;
+  border-radius: 999px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  z-index: 999;
+}
+.back-to-top.show {
+  opacity: 1;
+  pointer-events: auto;
+}
 
   </style>
   <noscript><style>.apple-emoji { display: none; }</style></noscript>
@@ -358,16 +381,23 @@
       });
     }
   });
+    window.addEventListener("scroll", () => {
+  const btn = document.querySelector(".back-to-top");
+  if (window.scrollY > 300) {
+    btn.classList.add("show");
+  } else {
+    btn.classList.remove("show");
+  }
+});
+
 </script>
 </head>
 <body>
   <header>
-   <div class="header-left">
-  <a href="https://aiwithlc.github.io/EnTerapiaEA/" style="display: flex; align-items: center; gap: 0.75rem; text-decoration: none;">
-    <img src="Logo.png" alt="Logo Terapia EA" class="logo">
-    <h1 style="margin: 0;">enterapia.ea</h1>
-  </a>
-</div>
+ <a href="/" class="header-left" style="text-decoration: none;">
+  <img src="Logo.png" alt="Logo Terapia EA" class="logo">
+  <h1>enterapia.ea</h1>
+</a>
     <nav>
       <button class="menu-toggle" onclick="toggleMenu()">☰</button>
       <a href="#sobre">Sobre Mí</a>
@@ -460,5 +490,6 @@
   <footer>
     © 2025 En Terapia EA · Diseñado con amor y propósito
   </footer>
+  <button class="back-to-top" onclick="window.scrollTo({ top: 0, behavior: 'smooth' })">🔝 Arriba</button>
 </body>
 </html>
