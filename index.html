@@ -21,15 +21,19 @@
       color: var(--text);
     }
     header {
-  background-color: var(--primary);
-  color: #fff;
-  text-align: center;
-  padding: 3.5rem 1rem 3rem;
-  border-bottom: 10px solid var(--accent);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
-  background-image: radial-gradient(circle at top left, rgba(255,255,255,0.05), rgba(255,255,255,0)), radial-gradient(circle at bottom right, rgba(255,255,255,0.1), rgba(255,255,255,0));
-  background-blend-mode: overlay;
-}
+      background-color: var(--primary);
+      color: #fff;
+      text-align: center;
+      padding: 3.5rem 1rem 3rem;
+      border-bottom: 10px solid var(--accent);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+      background-image: radial-gradient(circle at top left, rgba(255,255,255,0.05), rgba(255,255,255,0)), radial-gradient(circle at bottom right, rgba(255,255,255,0.1), rgba(255,255,255,0));
+      background-blend-mode: overlay;
+    }
+    header img.logo {
+      width: 80px;
+      margin-bottom: 1rem;
+    }
     header h1 {
       font-size: 3rem;
       margin: 0;
@@ -40,9 +44,12 @@
       font-weight: 500;
       font-size: 1.15rem;
       line-height: 1.5;
-      max-width: 680px;
+      max-width: 880px;
       margin-left: auto;
       margin-right: auto;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
     nav {
       display: flex;
@@ -58,10 +65,21 @@
       font-size: 1rem;
       padding: 0.25rem 0.75rem;
       border-radius: 6px;
+      position: relative;
     }
-    nav a:focus,
-    nav a:hover {
-      background-color: rgba(255, 255, 255, 0.15);
+    nav a::after {
+      content: "";
+      position: absolute;
+      width: 0%;
+      height: 2px;
+      left: 0;
+      bottom: -4px;
+      background-color: #fff;
+      transition: width 0.3s;
+    }
+    nav a:hover::after,
+    nav a:focus::after {
+      width: 100%;
     }
     .section {
       max-width: 920px;
@@ -70,9 +88,9 @@
       line-height: 1.6;
     }
     .hero img {
-      width: 220px;
+      width: 240px;
       border-radius: 100px;
-      box-shadow: 0 4px 14px rgba(0,0,0,0.1);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.1);
       margin-bottom: 1.25rem;
     }
     .cta-button {
@@ -91,7 +109,7 @@
       background: #4fb0ab;
     }
     .book-section img {
-      width: 280px;
+      width: 320px;
       border-radius: 14px;
       box-shadow: 0 6px 12px rgba(0,0,0,0.1);
       margin-bottom: 1rem;
@@ -136,31 +154,18 @@
       margin-top: 2rem;
     }
     #editorial img {
-  max-width: 300px;
-  margin-bottom: 1rem;
-  box-shadow: none;
-  background: none;
-}
-    nav a:focus,
-nav a:hover {
-  background-color: rgba(255, 255, 255, 0.15);
-  text-decoration: underline;
-  text-underline-offset: 4px;
-}
-
+      max-width: 300px;
+      margin-bottom: 1rem;
+      box-shadow: none;
+      background: none;
+    }
   </style>
 </head>
 <body>
   <header>
+    <img src="logo.png" alt="Logo Terapia EA" class="logo">
     <h1>enterapia.ea</h1>
-   <header>
-  <img src="logo.png" alt="Logo Terapia EA" style="width: 80px; margin-bottom: 1rem;">
-  <h1>enterapia.ea</h1>
-  <p style="white-space: nowrap; overflow-wrap: normal;">
-    Lic. Ericka Acosta, M.A · Neuropsicóloga Clínica Infantil · Lenguaje y conducta · Edu. Inclusiva · Autismo 🧠<br>
-    <strong>Normalizar lo distinto</strong>
-  </p>
-
+    <p>Lic. Ericka Acosta, M.A · Neuropsicóloga Clínica Infantil · Lenguaje y conducta · Edu. Inclusiva · Autismo 🧠<br><strong>Normalizar lo distinto</strong></p>
     <nav>
       <a href="#sobre">Sobre Mí</a>
       <a href="#libro">Tommy, ¿Dónde Están Mis Gafas?</a>
@@ -169,6 +174,8 @@ nav a:hover {
       <a href="#contacto">Contacto</a>
     </nav>
   </header>
+</body>
+</html>
 
   <section class="section hero" id="inicio" style="text-align: center;">
     <img src="Ericka.png" alt="Foto de la Lic. Ericka Acosta sonriendo con fondo neutro">
