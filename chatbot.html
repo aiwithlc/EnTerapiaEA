@@ -35,6 +35,9 @@
       transition: background 0.3s ease;
       cursor: pointer;
     }
+    .chatbot-toggle:focus {
+      outline: 2px solid var(--primary);
+    }
     .chatbot-popup {
       position: fixed;
       bottom: 80px;
@@ -63,6 +66,10 @@
       height: 26px;
       margin-right: 0.5rem;
       vertical-align: middle;
+    }
+    .chat-header span {
+      display: flex;
+      align-items: center;
     }
     .chat-header button {
       background: none;
@@ -123,7 +130,7 @@
 <body>
   <div class="chatbot-popup" id="chatPopup">
     <div class="chat-header">
-      <span><img src="eabot.png" alt="EA Bot" /> EA Bot</span>
+      <span><img src="https://aiwithlc.github.io/EnTerapiaEA/bot-icon.png" alt="EA Bot" /> EA Bot</span>
       <button onclick="toggleChat()">×</button>
     </div>
     <div class="chat-messages" id="chatMessages">
@@ -135,7 +142,7 @@
     </form>
   </div>
 
-  <a class="chatbot-toggle" onclick="toggleChat()">💬 Chatea con EA Bot</a>
+  <a class="chatbot-toggle" id="chatbotToggle">💬 Chatea con EA Bot</a>
 
   <script>
     const answers = {
@@ -152,11 +159,15 @@
     const popup = document.getElementById('chatPopup');
     const messages = document.getElementById('chatMessages');
     const input = document.getElementById('userInput');
+    const toggle = document.getElementById('chatbotToggle');
 
     function toggleChat() {
-      popup.style.display = popup.style.display === 'flex' ? 'none' : 'flex';
-      if (popup.style.display === 'flex') input.focus();
+      const isVisible = popup.style.display === 'flex';
+      popup.style.display = isVisible ? 'none' : 'flex';
+      if (!isVisible) input.focus();
     }
+
+    toggle.addEventListener('click', toggleChat);
 
     function handleUserInput(event) {
       event.preventDefault();
