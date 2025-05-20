@@ -349,7 +349,15 @@
       input.value = question;
       handleSearchInput({ target: input });
     }
-  </script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const apple = document.querySelector(".apple-emoji");
+    if (apple) {
+      apple.addEventListener("animationend", () => {
+        apple.remove();
+      });
+    }
+  });
+</script>
 </head>
 <body>
   <header>
