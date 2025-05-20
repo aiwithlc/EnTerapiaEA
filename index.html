@@ -389,6 +389,10 @@
     btn.classList.remove("show");
   }
 });
+    fetch("chatbot.html").then(res => res.text()).then(html => {
+  document.body.insertAdjacentHTML("beforeend", html);
+});
+
 
 </script>
 </head>
