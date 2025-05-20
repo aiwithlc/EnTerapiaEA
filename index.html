@@ -160,6 +160,28 @@
       background: none;
     }
   </style>
+ <script>
+    const answers = {
+      "¿qué es el tea?": "El Trastorno del Espectro Autista (TEA) es una condición del neurodesarrollo caracterizada por dificultades en la comunicación social y patrones de comportamiento repetitivos. (American Psychiatric Association, 2013).",
+      "cómo se diagnostica el autismo": "El diagnóstico del autismo se basa en criterios clínicos observacionales establecidos en el DSM-5. Incluye evaluaciones del lenguaje, interacción social y patrones conductuales repetitivos. (Lord et al., 2020).",
+      "hay cura para el autismo": "El autismo no tiene cura, pero con apoyo adecuado, muchas personas pueden llevar vidas plenas. Las intervenciones incluyen terapia del lenguaje, ocupacional y apoyo conductual. (Zwaigenbaum et al., 2015).",
+      "el autismo es hereditario": "Existe una fuerte evidencia de que el autismo tiene un componente genético, aunque no siempre es hereditario en un patrón directo. (Sandin et al., 2014).",
+      "cómo apoyar a un niño con autismo": "Apoyar a un niño con autismo incluye brindar rutinas estables, comunicación clara, refuerzos positivos y acceso a terapias como la terapia ocupacional y del habla. (National Research Council, 2001)."
+    };
+
+    function handleSearchInput(e) {
+      const query = e.target.value.toLowerCase().trim();
+      const output = document.getElementById('autism-answer');
+      const result = Object.entries(answers).find(([q]) => query.includes(q));
+      output.textContent = result ? result[1] : 'Lo siento, aún no tengo una respuesta para eso.';
+    }
+
+    function autofill(question) {
+      const input = document.querySelector('.search-section input');
+      input.value = question;
+      handleSearchInput({ target: input });
+    }
+  </script>
 </head>
 <body>
   <header>
@@ -173,6 +195,7 @@
       <a href="#foro">Cuestiónalo</a>
       <a href="#contacto">Contacto</a>
     </nav>
+    
   </header>
   <section class="section hero" id="inicio" style="text-align: center;">
     <img src="Ericka.png" alt="Foto de la Lic. Ericka Acosta sonriendo con fondo neutro">
@@ -192,10 +215,18 @@
   </blockquote>
 </section>
 
-<section class="search-section">
+  <section class="search-section">
     <h2>🔍 ¿Tienes preguntas sobre el autismo?</h2>
-    <p>Escríbelas aquí para encontrar artículos, recursos y respuestas claras.</p>
-    <input type="text" placeholder="Ej: ¿Qué es el TEA?">
+    <p>Haz clic en una pregunta común o escribe la tuya:</p>
+    <div class="question-suggestions">
+      <button onclick="autofill('¿Qué es el TEA?')">¿Qué es el TEA?</button>
+      <button onclick="autofill('¿Cómo se diagnostica el autismo?')">¿Cómo se diagnostica el autismo?</button>
+      <button onclick="autofill('¿Hay cura para el autismo?')">¿Hay cura para el autismo?</button>
+      <button onclick="autofill('¿El autismo es hereditario?')">¿El autismo es hereditario?</button>
+      <button onclick="autofill('¿Cómo apoyar a un niño con autismo?')">¿Cómo apoyar a un niño con autismo?</button>
+    </div>
+    <input type="text" placeholder="Escribe tu pregunta..." oninput="handleSearchInput(event)">
+    <div id="autism-answer" style="margin-top: 1.5rem; font-size: 1rem; color: var(--text); max-width: 620px; margin-left: auto; margin-right: auto;"></div>
     <div class="emoji-grid" aria-hidden="true">
       🧠 👧🏽 📘 🗣️ ♾ 🧩 👀 🧒🏻 🎨 🫂 💬 🧸
     </div>
