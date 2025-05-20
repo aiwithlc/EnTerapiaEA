@@ -500,5 +500,16 @@
     © 2025 En Terapia EA · Diseñado con amor y propósito
   </footer>
   <button class="back-to-top" onclick="window.scrollTo({ top: 0, behavior: 'smooth' })">🔝 Arriba</button>
+  <iframe src="chatbot.html" style="display:none;" id="chatbot-frame"></iframe>
+<script>
+  fetch('chatbot.html')
+    .then(res => res.text())
+    .then(html => {
+      const div = document.createElement('div');
+      div.innerHTML = html;
+      document.body.appendChild(div);
+    });
+</script>
+
 </body>
 </html>
