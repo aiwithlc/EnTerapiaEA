@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>En Terapia EA – Chatbot</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #A9DBF5;
+      --highlight: #F4F0FF;
+      --text: #222;
+      --bot-bg: #fff;
+      --user-bg: #BCEAE5;
+    }
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      background: #fffdf9;
+      color: var(--text);
+    }
+    .chatbot-toggle {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: var(--highlight);
+      color: var(--text);
+      padding: 0.7rem 1rem;
+      border-radius: 999px;
+      font-weight: 600;
+      text-decoration: none;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      font-size: 0.9rem;
+      z-index: 999;
+      transition: background 0.3s ease;
+      cursor: pointer;
+    }
+    .chatbot-popup {
+      position: fixed;
+      bottom: 80px;
+      right: 24px;
+      width: 320px;
+      max-height: 480px;
+      background: #ffffff;
+      border-radius: 1rem;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+      overflow: hidden;
+      display: none;
+      flex-direction: column;
+      z-index: 998;
+    }
+    .chat-header {
+      background: linear-gradient(to right, #F4F0FF, #DAD6F4);
+      color: var(--text);
+      padding: 1rem;
+      font-weight: 600;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .chat-header img {
+      width: 26px;
+      height: 26px;
+      margin-right: 0.5rem;
+      vertical-align: middle;
+    }
+    .chat-header button {
+      background: none;
+      border: none;
+      font-size: 1.2rem;
+      cursor: pointer;
+    }
+    .chat-messages {
+      padding: 1rem;
+      flex: 1;
+      overflow-y: auto;
+      font-size: 0.9rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+    .chat-messages .bot {
+      background: var(--highlight);
+      padding: 0.6rem 1rem;
+      border-radius: 1rem;
+      max-width: 80%;
+      animation: fadeIn 0.3s ease-in-out;
+    }
+    .chat-messages .user {
+      background: var(--user-bg);
+      align-self: flex-end;
+      padding: 0.6rem 1rem;
+      border-radius: 1rem;
+      max-width: 80%;
+    }
+    .chat-input {
+      display: flex;
+      padding: 0.8rem;
+      border-top: 1px solid #eee;
+      gap: 0.4rem;
+    }
+    .chat-input input {
+      flex: 1;
+      padding: 0.6rem 1rem;
+      border-radius: 1.6rem;
+      border: 1px solid var(--highlight);
+      font-size: 0.9rem;
+    }
+    .chat-input button {
+      background: var(--primary);
+      border: none;
+      padding: 0.6rem 1rem;
+      border-radius: 999px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <div class="chatbot-popup" id="chatPopup">
+    <div class="chat-header">
+      <span><img src="eabot.png" alt="EA Bot" /> EA Bot</span>
+      <button onclick="toggleChat()">×</button>
+    </div>
+    <div class="chat-messages" id="chatMessages">
+      <div class="bot">Hola 👋 ¿Sobre qué quieres saber?<br>Escribe una palabra como "diagnóstico", "apoyar", o "hereditario".</div>
+    </div>
+    <form class="chat-input" onsubmit="return handleUserInput(event)">
+      <input type="text" id="userInput" placeholder="Escribe aquí..." autocomplete="off" />
+      <button type="submit">➤</button>
+    </form>
+  </div>
+
+  <a class="chatbot-toggle" onclick="toggleChat()">💬 Chatea con EA Bot</a>
+
+  <script>
+    const answers = {
+      "diagnóstico": "El diagnóstico del autismo se realiza por observación clínica y pruebas específicas. DSM-5 es la guía principal.",
+      "apoyar": "Apoyar a un niño con TEA incluye rutina, lenguaje claro y terapias como ocupacional y del habla.",
+      "hereditario": "Sí, existe un componente genético fuerte en el autismo, aunque no siempre es directo.",
+      "cura": "El autismo no se cura, pero con apoyo adecuado las personas pueden desarrollarse plenamente.",
+      "barcelona": "Puedes encontrar recursos en <a href='https://www.aprenem.org' target='_blank'>Aprenem</a> y <a href='https://autisme.org.es/' target='_blank'>Autismo Barcelona</a>.",
+      "santo domingo": "Te recomendamos <a href='https://www.autismorepdom.org' target='_blank'>Fundación Manos Unidas por Autismo</a> en Santo Domingo.",
+      "caminar": "Muchos niños con TEA desarrollan habilidades motoras en tiempos distintos, caminar puede llegar más tarde pero es posible con apoyo físico adecuado.",
+      "terapia": "Hay varias terapias útiles para el TEA: ocupacional, del habla, sensorial, y apoyo conductual basado en evidencia."
+    };
+
+    const popup = document.getElementById('chatPopup');
+    const messages = document.getElementById('chatMessages');
+    const input = document.getElementById('userInput');
+
+    function toggleChat() {
+      popup.style.display = popup.style.display === 'flex' ? 'none' : 'flex';
+      if (popup.style.display === 'flex') input.focus();
+    }
+
+    function handleUserInput(event) {
+      event.preventDefault();
+      const text = input.value.trim();
+      if (!text) return;
+
+      appendMessage(text, 'user');
+      const keyword = Object.keys(answers).find(key => text.toLowerCase().includes(key));
+      setTimeout(() => {
+        appendMessage(keyword ? answers[keyword] : 'Lo siento, aún no tengo una respuesta para eso.', 'bot');
+      }, 400);
+
+      input.value = '';
+    }
+
+    function appendMessage(text, type) {
+      const msg = document.createElement('div');
+      msg.className = type;
+      msg.innerHTML = '';
+      messages.appendChild(msg);
+
+      let i = 0;
+      const typing = setInterval(() => {
+        msg.innerHTML += text[i];
+        i++;
+        if (i === text.length) clearInterval(typing);
+        messages.scrollTop = messages.scrollHeight;
+      }, 15);
+    }
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') popup.style.display = 'none';
+    });
+  </script>
+</body>
+</html>
